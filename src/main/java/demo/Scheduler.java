@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.health.info.CPU;
 import com.health.info.DeviceInformation;
 import com.health.info.MemoryInformation;
+import com.health.info.ProcessInfo;
 import com.health.util.ConfigScheduler;
 import com.health.util.Constants;
 
@@ -38,9 +39,11 @@ public class Scheduler extends Thread implements Runnable{
 		
 		CPU cpu=new CPU();
 		MemoryInformation memory=new MemoryInformation();
+		ProcessInfo process=new ProcessInfo();
 		
 		jsonOrderedMap.put("cpu_stat_s", cpu.getCpuInformation());
 		jsonOrderedMap.put("memory_stat_s", memory.getMemoryInformation());
+		jsonOrderedMap.put("process_stat_s", process.getProcessInfo(Constants.processName));
 		JSONObject appliance_health=new JSONObject(jsonOrderedMap);
 		
 		/*appliance_health.put("appliance_id_string", DeviceInformation.applianceId);
