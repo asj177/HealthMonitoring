@@ -3,12 +3,13 @@ package com.health.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class ConfigScheduler {
 	
 	public static  int timer=-1;
-	public static String processname=null;
+	public static ArrayList<String> processname=new ArrayList<String>();
 	public static String password=null;
 	
 	public static ConfigScheduler config;
@@ -35,11 +36,25 @@ public class ConfigScheduler {
 			String timerInfo=properties.getProperty("timeInfo");
 			timer=Integer.parseInt(timerInfo);
 		}
-		if(processname==null){
-			processname=properties.getProperty("processname");
+		if(processname.size()==0){
+			String processes=properties.getProperty("processname");
+			if(processes.contains(",")){
+				
+				
+				String []process=processes.split(",");
+				
+				for(int i=0;i<process.length;i++){
+					processname.add(process[i]);
+				}
+			}
+			
+			if(!processes.isEmpty()){
+				processname.add(processes);
+			}
 			
 		}
 		
+	
 		if(password==null){
 			password=properties.getProperty("password");
 			
