@@ -11,6 +11,7 @@ public class ConfigScheduler {
 	public static  int timer=-1;
 	public static ArrayList<String> processname=new ArrayList<String>();
 	public static String password=null;
+	public static ArrayList<String> ports=new ArrayList<String>();
 	
 	public static ConfigScheduler config;
 	
@@ -58,6 +59,35 @@ public class ConfigScheduler {
 		if(password==null){
 			password=properties.getProperty("password");
 			
+		}
+		
+		if(ports.size()==0){
+			String portsInfo=properties.getProperty("network_interface_seed_string");
+			String inteface=properties.getProperty("interface_range");
+		    int interfacerange=Integer.parseInt(inteface);
+			
+			if(!portsInfo.isEmpty() || portsInfo!=null){
+			 if(portsInfo.contains(",")){
+				 String []split=portsInfo.split(",");
+				 for(int i=0;i<split.length;i++){
+					 for(int j=0;i<interfacerange;j++){
+						 String portsInfor=split[i]+j;
+						 ports.add(portsInfor);
+					 }
+					 
+					 
+				 }
+				 
+			 }else{
+				 for(int i=0;i<=interfacerange;i++){
+					 String portsInfor=portsInfo+i;
+					 ports.add(portsInfor);
+				 }
+				 
+			 }
+			 
+			 
+			}
 		}
 		}catch(Exception e){
 			e.printStackTrace();
