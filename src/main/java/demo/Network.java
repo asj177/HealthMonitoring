@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.health.info.CPU;
@@ -14,21 +15,15 @@ public class Network {
 
 	public static void main(String[] args) {
 		
+		
+		
+		JSONArray net=new JSONArray();	
 		try{
-		String processLine=null;
-		String processName="java";
 		
-		String middle="\"%-8s %-8s %-8s %-8s \\n \"";
+		JSONObject info=new JSONObject();	
 		
-		String first=" | grep \"^ \"";
-		String cc="top -bn 1"+first +"|  awk '{ printf("+
-				
-middle
-				
-				+", $1,$9, $10, $12); }' | head -n 11";
-		
-		
-		String []cmd={"/bin/sh","-c",cc};
+		String cmd="ifconfig -a eth0";
+		info.put("port_name","eth0");
 		Process p = Runtime.getRuntime().exec(cmd);
 		InputStream stdin = p.getInputStream();
 		InputStreamReader isr = new InputStreamReader(stdin);
@@ -36,95 +31,52 @@ middle
 
 		String line = null;
 		
-		 // System.out.println(line);
+		
 		int k=0;
-		/*do{
-			line = br.readLine();
-			k++;
-		}while(k<7);*/		   
-		    
-		   
-			
-		while ( (line = br.readLine()) != null){
-			
-			//System.out.println(line);
-			
-			//System.out.println(line.trim());
-			String line2=line.substring(1, line.length()-1);
-			
-			String []splie=line2.split("    ");
-			
-			for(int i=0;i<splie.length;i++){
-			System.out.print(splie[i]+"  ");
+				   
+		line=br.readLine();
+		
+		if(line.contains("HWaddr")){
+			String []split=line.split("\\s+");
+			info.put("mac_address", split[4]);
+		}
+		
+		p= Runtime.getRuntime().exec("ethtool  eth0");
+		InputStream stdin1 = p.getInputStream();
+		InputStreamReader isr1 = new InputStreamReader(stdin1);
+		BufferedReader br1 = new BufferedReader(isr1);
+
+		String line1 = null;
+	
+		while((line1=br1.readLine())!=null){
+			line1.trim();
+			if(line1.contains("Speed")){info.put("uint8_t link_state", 0 );
+				String []sp=line1.split(":");
+				info.put("speed", sp[1].trim());
 			}
 			
-			System.out.println(" ");
-			/*String []splitLine=line.split(" ");
-			System.out.print("process_name   "+splitLine[splitLine.length-1].trim());
 			
-			System.out.print("  ");
-			
-			System.out.print("process_pid    "+splitLine[0]);
-			
-			System.out.print("  ");
-			
-			System.out.print("uint64_t mem_in_use  "+splitLine[19]);
-			
-			System.out.println(" ");*/
-			/*if(line.contains(name)){
-				JSONObject processInfo=new JSONObject();
-				String []splitLine=line.split(" ");
+			if(line1.contains("Link detected")){
+				String []sp=line1.split(":");
 				
+				if(sp[1].equals("no")){
+					info.put("uint8_t link_state", 0);
+				}else{
+					info.put("uint8_t link_state", 1);
+				}
 				
-				processInfo.put("process_name", name);
-				processInfo.put("process_pid", splitLine[1].trim());
-				processInfo.put("uint64_t mem_in_use", splitLine[19].trim());
-				processArray.put(processInfo);
-				
-				i++;
-			}*/
-			
+			}
 		}
-
+			
+		
+		net.put(info);
+		
+		System.out.println(net);
 	
 
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		/*ProcessInfo cp=new ProcessInfo();
 		
-		cp.getProcessInfo("java");*/
-		/*Runtime rt = Runtime.getRuntime();
-		try {
-			Process proc = rt.exec("vmstat -s");
-			InputStream stdin = proc.getInputStream();
-			InputStreamReader isr = new InputStreamReader(stdin);
-			BufferedReader br = new BufferedReader(isr);
-
-			String line = null;
-			System.out.println("<OUTPUT>");
-
-			int i=0;
-			
-			while ( (line = br.readLine()) != null){
-			  //System.out.println(line);
-				
-			   if(line.contains(" K ")){
-			    	String []out=line.split(" K " );
-			    	System.out.println(out[1]+"  "+out[0]);
-			    	
-			    }
-			    
-			   
-				
-			}
-
-			System.out.println("</OUTPUT>");
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 }
