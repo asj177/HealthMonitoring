@@ -8,11 +8,11 @@ import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.health.info.CPU;
-import com.health.info.DeviceInformation;
-import com.health.info.MemoryInformation;
-import com.health.info.NetworkInfo;
-import com.health.info.ProcessInfo;
+import com.health.modules.CPU;
+import com.health.modules.DeviceInformation;
+import com.health.modules.MemoryInformation;
+import com.health.modules.NetworkInfo;
+import com.health.modules.ProcessInfo;
 import com.health.util.ConfigScheduler;
 import com.health.util.Constants;
 
