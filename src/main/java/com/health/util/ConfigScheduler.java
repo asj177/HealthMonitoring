@@ -34,7 +34,7 @@ public class ConfigScheduler {
 		
 		if(timer==-1){
 			//timer=Integer.getInteger(properties.getProperty("timerInfo"));
-			String timerInfo=properties.getProperty("timeInfo");
+			String timerInfo=properties.getProperty("polling_interval");
 			timer=Integer.parseInt(timerInfo);
 		}
 		if(processname.size()==0){
