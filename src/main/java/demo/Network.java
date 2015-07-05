@@ -8,8 +8,8 @@ import java.io.InputStreamReader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.health.info.CPU;
-import com.health.info.ProcessInfo;
+import com.health.modules.CPU;
+import com.health.modules.ProcessInfo;
 
 public class Network {
 
