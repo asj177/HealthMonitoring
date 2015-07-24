@@ -17,12 +17,14 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot' 
 apply plugin: 'io.spring.dependency-management' 
 
+
+
 jar {
-    baseName = 'demo'
-    version = '0.0.1-SNAPSHOT'
+    baseName = 'healthmonitoring'
+    version = ''
 }
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
     mavenCentral()
@@ -33,6 +35,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
     compile("org.json:json:20141113")
+    compile("org.elasticsearch:elasticsearch:1.1.1")
 }
 
 
@@ -44,5 +47,5 @@ eclipse {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '1.4'
 }

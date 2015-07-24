@@ -16,7 +16,7 @@ public class HealthMonitoringApplication {
     	config.setTimer();
     	Scheduler scheduler=new Scheduler();
     	scheduler.start();
-        //SpringApplication.run(HealthMonitoringApplication.class, args);
+       //SpringApplication.run(HealthMonitoringApplication.class, args);
     	
     }
 }

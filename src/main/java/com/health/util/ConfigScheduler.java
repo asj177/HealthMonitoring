@@ -12,6 +12,7 @@ public class ConfigScheduler {
 	public static ArrayList<String> processname=new ArrayList<String>();
 	public static String password=null;
 	public static ArrayList<String> ports=new ArrayList<String>();
+	public static String elasticIP="";
 	
 	public static ConfigScheduler config;
 	
@@ -34,7 +35,7 @@ public class ConfigScheduler {
 		
 		if(timer==-1){
 			//timer=Integer.getInteger(properties.getProperty("timerInfo"));
-			String timerInfo=properties.getProperty("timeInfo");
+			String timerInfo=properties.getProperty("polling_interval");
 			timer=Integer.parseInt(timerInfo);
 		}
 		if(processname.size()==0){
@@ -59,6 +60,10 @@ public class ConfigScheduler {
 		if(password==null){
 			password=properties.getProperty("password");
 			
+		}
+		
+		if(elasticIP.isEmpty() || elasticIP.equals("")){
+			elasticIP=properties.getProperty("es_ip");
 		}
 		
 		if(ports.size()==0){

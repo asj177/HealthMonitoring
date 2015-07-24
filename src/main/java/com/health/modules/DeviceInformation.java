@@ -41,19 +41,19 @@ public class DeviceInformation {
 						String []output=line.split(":");
 						
 						if(line.contains("Serial")){
-							serialNumberInfo=output[1];
+							serialNumberInfo=output[1].trim();
 							
 							serialNumber=true;
 						}
 						
 						if(line.contains("UUID")){
-							applianceId=output[1];
+							applianceId=output[1].trim();
 							
 							applicanceId=true;
 						}
 						
 						if(line.contains("Product")){
-							motherboardNameInfo=output[1];
+							motherboardNameInfo=output[1].trim();
 							
 							motherboardname=true;
 						}

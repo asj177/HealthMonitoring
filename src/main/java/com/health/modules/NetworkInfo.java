@@ -38,10 +38,24 @@ public class NetworkInfo {
 		line=br.readLine();
 		
 		if(line.contains("HWaddr")){
-			String []split=line.split("\\s+");
-			info.put("mac_address", split[4]);
+			String []split=line.split("  ");
+			info.put("mac_address", split[4].trim());
 		}
 		
+		while(!line.contains("RX")){
+			line=br.readLine();
+			
+		}
+		line=line.trim();
+		String []split=line.split(" ");
+		
+		String []split2=split[1].split(":");
+		line=br.readLine();
+		info.put("rx_pkts", Long.valueOf(split2[1]));
+         String []split3=line.split(" ");
+		
+		String []split4=split[1].split(":");
+		info.put("tx_pkts", Long.valueOf(split4[1]));
 		p= Runtime.getRuntime().exec("ethtool  eth0");
 		InputStream stdin1 = p.getInputStream();
 		InputStreamReader isr1 = new InputStreamReader(stdin1);
@@ -51,7 +65,7 @@ public class NetworkInfo {
 	
 		while((line1=br1.readLine())!=null){
 			line1.trim();
-			if(line1.contains("Speed")){info.put("uint8_t link_state", 0 );
+			if(line1.contains("Speed")){info.put("link_state", 0 );
 				String []sp=line1.split(":");
 				info.put("speed", sp[1].trim());
 			}
@@ -60,10 +74,10 @@ public class NetworkInfo {
 			if(line1.contains("Link detected")){
 				String []sp=line1.split(":");
 				
-				if(sp[1].equals("no")){
-					info.put("uint8_t link_state", 0);
+				if(sp[1].trim().equals("no")){
+					info.put("link_state", 0);
 				}else{
-					info.put("uint8_t link_state", 1);
+					info.put("link_state", 1);
 				}
 				
 			}

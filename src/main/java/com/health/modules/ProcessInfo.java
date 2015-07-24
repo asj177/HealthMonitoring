@@ -49,7 +49,7 @@ public class ProcessInfo {
 				JSONObject processInfo=new JSONObject();
 				processInfo.put("process_name", splie[3].trim());
 				processInfo.put("process_pid", splie[0].trim());
-				processInfo.put("uint64_t mem_in_use", splie[2].trim());
+				processInfo.put("mem_in_use", Double.valueOf(splie[2].trim()));
 				processArray.put(processInfo);
 			}
 			
@@ -100,9 +100,9 @@ public class ProcessInfo {
 						
 						
 						
-						processInfo.put("process_name", splie[0]);
+						processInfo.put("process_name", splie[0].trim());
 						processInfo.put("process_pid", splie[1].trim());
-						processInfo.put("uint64_t mem_in_use", splie[2].trim());
+						processInfo.put("mem_in_use", Double.valueOf(splie[2].trim()));
 						processArray.put(processInfo);
 						
 						

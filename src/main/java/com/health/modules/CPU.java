@@ -24,7 +24,7 @@ public class CPU {
 			
 			while ( (line = br.readLine()) != null){
 			    String []out=line.split(" ");
-			     cpuinfo.put("temp_in_celsius", out[3]);
+			     cpuinfo.put("temp_in_celsius", out[3].trim());
 			}
 			proc=rt.exec("cat /proc/cpuinfo");
 			InputStream stdin2 = proc.getInputStream();
@@ -34,16 +34,16 @@ public class CPU {
 			while ( (cpuMainInfo = br2.readLine()) != null){
 				 String []output=cpuMainInfo.split(":");
 				    if(output[0].trim().equals("model name")) {
-				    	cpuinfo.put("model_name", output[1]);
+				    	cpuinfo.put("model_name", output[1].trim());
 				    	
 				    }
 				    
 				    if(output[0].trim().equals("cpu MHz")) {
-				    	cpuinfo.put("cpu_MHz_String", output[1]);
+				    	cpuinfo.put("cpu_MHz_String", output[1].trim());
 				    }
 				    
 				    if(output[0].trim().equals("cache size")) {
-				    	cpuinfo.put("cache_size_string", output[1]);
+				    	cpuinfo.put("cache_size_string", output[1].trim());
 				    }
 					
 			}

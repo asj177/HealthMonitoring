@@ -26,27 +26,27 @@ public class MemoryInformation {
 			    	String []out=line.split(" K " );
 			    	
 			    	if(out[1].equals("total memory")){
-			    		memoryInfo.put("total_memory", out[0].trim());
+			    		memoryInfo.put("total_memory", Long.valueOf(out[0].trim()));
 			    	}
 			    	
 			    	if(out[1].equals("free memory")){
-			    		memoryInfo.put("free", out[0].trim());
+			    		memoryInfo.put("free", Long.valueOf(out[0].trim()));
 			    	}
 			    	
 			    	if(out[1].equals("used memory")){
-			    		memoryInfo.put("used", out[0].trim());
+			    		memoryInfo.put("used", Long.valueOf(out[0].trim()));
 			    	}
 			    	
 			    	if(out[1].equals("total swap")){
-			    		memoryInfo.put("swap_total", out[0].trim());
+			    		memoryInfo.put("swap_total", Long.valueOf(out[0].trim()));
 			    	}
 			    	
 			    	if(out[1].equals("used swap")){
-			    		memoryInfo.put("swap_used", out[0]);
+			    		memoryInfo.put("swap_used", Long.valueOf(out[0].trim()));
 			    	}
 			    	
 			    	if(out[1].equals("free swap")){
-			    		memoryInfo.put("swap_free", out[0]);
+			    		memoryInfo.put("swap_free", Long.valueOf(out[0].trim()));
 			    	}
 			    }
 			    
