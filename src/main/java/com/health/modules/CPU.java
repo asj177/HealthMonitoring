@@ -24,7 +24,7 @@ public class CPU {
 			
 			while ( (line = br.readLine()) != null){
 			    String []out=line.split(" ");
-			     cpuinfo.put("temp_in_celsius", out[3].trim());
+			     cpuinfo.put("temp_in_celsius", Double.valueOf(out[3].trim()));
 			}
 			proc=rt.exec("cat /proc/cpuinfo");
 			InputStream stdin2 = proc.getInputStream();

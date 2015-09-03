@@ -95,7 +95,7 @@ public class NetworkInfo {
 		
 		}
 		}
-		
+		System.out.println(net);
 		return net;
 	}
 	

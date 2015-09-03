@@ -30,8 +30,11 @@ public class Scheduler extends Thread implements Runnable{
 	@Scheduled(fixedRate=1000)
 	public void healthMaintainance(){
 		
-		HashMap jsonOrderedMap = new HashMap();
 		
+		CPU cpu=new CPU();
+		MemoryInformation memory=new MemoryInformation();
+		ProcessInfo process=new ProcessInfo();
+		NetworkInfo net=new NetworkInfo();
 		
 		
 		
@@ -39,33 +42,32 @@ public class Scheduler extends Thread implements Runnable{
 			DeviceInformation deviceinfo=new DeviceInformation();
 			deviceinfo.getDeviceInfo();
 		}
+		
 		Date date=new Date(System.currentTimeMillis());
-		Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Format format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 	   
-			
+		HashMap jsonOrderedMap = new HashMap();	
 		jsonOrderedMap.put("appliance_id_string", DeviceInformation.applianceId);
 		jsonOrderedMap.put("mother_board_name", DeviceInformation.motherboardNameInfo);
 		jsonOrderedMap.put("mother_board_serial_number", DeviceInformation.serialNumberInfo);
-		jsonOrderedMap.put("@timestampp", format.format(date));
-	    CPU cpu=new CPU();
-		MemoryInformation memory=new MemoryInformation();
-		ProcessInfo process=new ProcessInfo();
-		NetworkInfo net=new NetworkInfo();
-		
-		jsonOrderedMap.put("cpu_stat_s", cpu.getCpuInformation());
+		jsonOrderedMap.put("@timestamp", format.format(date));
+	    jsonOrderedMap.put("cpu_stat_s", cpu.getCpuInformation());
 		jsonOrderedMap.put("process_stat_s", process.getProcessInfo(Constants.processName));
 		jsonOrderedMap.put("ether_stat_s", net.getNetworkInfo(Constants.networkPorts));
-		JSONObject appliance_health=new JSONObject(jsonOrderedMap);
+		jsonOrderedMap.put("memory_stat_s", memory.getMemoryInformation());
 		
-	    appliance_health.put("appliance_id_string", DeviceInformation.applianceId);
+		JSONObject appliance_health=new JSONObject(jsonOrderedMap);
+		appliance_health.put("appliance_id_string", DeviceInformation.applianceId);
 		appliance_health.put("mother_board_name", DeviceInformation.motherboardNameInfo);
 		appliance_health.put("mother_board_serial_number", DeviceInformation.serialNumberInfo);
-		appliance_health.put("@timestampp", format.format(date));
+		appliance_health.put("@timestamp", format.format(date));
 		appliance_health.put("cpu_stat_s", cpu.getCpuInformation());
 		appliance_health.put("memory_stat_s", memory.getMemoryInformation());
+		
 		UploadData upload=new UploadData();
-		upload.uploadData(jsonOrderedMap);
-		System.out.println(appliance_health);
+		upload.uploadDataViaHTTP(jsonOrderedMap);
+		//upload.uploadData(jsonOrderedMap);
+		//System.out.println(appliance_health);
 	}
 
 	@Override

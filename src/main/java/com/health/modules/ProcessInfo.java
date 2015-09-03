@@ -58,6 +58,8 @@ public class ProcessInfo {
 			e.printStackTrace();
 		}
 		
+		//System.out.println(processArray);
+		
 		return processArray;
 	}
 	
@@ -114,6 +116,8 @@ public class ProcessInfo {
 		}catch(Exception e){
 			
 		}
+		
+		//System.out.println(processArray);
 		
 		return processArray;
 	}
