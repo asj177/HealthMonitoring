@@ -20,10 +20,10 @@ public class DeviceInformation {
 		
 		try{
 			
-			String command="echo "+Constants.password +"| sudo -S dmidecode";
-			String []cmd={"/bin/sh","-c",command};
+			//String command="echo "+Constants.password +"| sudo -S dmidecode";
+			//String []cmd={"/bin/sh","-c",command};
 			
-			Process p = Runtime.getRuntime().exec(cmd);
+			Process p = Runtime.getRuntime().exec("dmidecode");
 			InputStream stdin = p.getInputStream();
 			InputStreamReader isr = new InputStreamReader(stdin);
 			BufferedReader br = new BufferedReader(isr);
